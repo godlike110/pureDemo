@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qunar.flight.flagship.flagtool.dao.oldallflagship.OldFlagshipDao">
+
+    <!--变更航站楼查询订单-->
+    <select id="selectContactInfoOld" resultType="PassengerInfo">
+        select
+          f.arrCode as arrCode,
+          f.depCode as depCode,
+          f.takeoffDateTime as oldDepartureTime,
+          f.arrivalDateTime as oldArrivalTime,
+          t.bookOrderId as bookOrderId,
+          t.contactMobile as contactMobile,
+          t.status as status
+        from
+        ${dbname}.tb_order t
+        left join ${dbname}.tb_flight_info f on f.orderId=t.id
+        <where>
+            t.status!=8 and
+            t.createTime between #{startTime} and #{endTime}
+            <if test="dcity!=''">
+                and f.depCode =#{dcity}
+            </if>
+            <if test="takeOffTime!=''">
+            <![CDATA[ and f.takeoffDateTime > #{takeOffTime} ]]>
+            </if>
+
+            <if test="takeOffEndTime!=''">
+                <![CDATA[   and f.takeoffDateTime < #{takeOffEndTime} ]]>
+            </if>
+
+            <if test="acity!=''">
+                and f.arrCode =#{acity}
+            </if>
+
+            <if test="arriveTime!=''">
+                <![CDATA[ and f.arrivalDateTime > #{arriveTime} ]]>
+            </if>
+
+            <if test="arriveEndTime!=''">
+                <![CDATA[  and f.arrivalDateTime < #{arriveEndTime} ]]>
+            </if>
+        </where>
+     </select>
+
+
+    <!--查询总的出票量-->
+    <select id="searchFlagshipTicketNumOld" resultType="Integer">
+        select count(1) from
+        ${dbname}.tb_passager p
+        left join ${dbname}.tb_order t
+        on p.orderId = t.id
+        where
+        t.createTime
+        between #{startDate}
+        and #{endDate}
+        and t.status=6
+        <if test="type==0">
+         <![CDATA[  and t.ext_source ='' ]]>
+        </if>
+        <if test="type==1">
+            <![CDATA[  and t.ext_source <>'' ]]>
+        </if>
+    </select>
+
+    <!--查询总的订单量-->
+    <select id="searchFlagshipOrderAllOld" resultType="Integer">
+        select count(1) from
+        ${dbname}.tb_order o
+        where
+        o.createTime
+        between #{startDate}
+        and #{endDate}
+        <if test="type==0">
+            <![CDATA[  and o.ext_source ='' ]]>
+        </if>
+        <if test="type==1">
+            <![CDATA[  and o.ext_source <>'']]>
+        </if>
+    </select>
+
+    <!--查询支付订单量-->
+    <select id="searchFlagshipOrderPaidOld" resultType="Integer">
+        select count(1) from
+        ${dbname}.tb_order o
+        where
+        o.createTime
+        between #{startDate}
+        and #{endDate}
+        <if test="type==0">
+            <![CDATA[  and o.ext_source ='' ]]>
+        </if>
+        <if test="type==1">
+            <![CDATA[  and o.ext_source <>'' ]]>
+        </if>
+        <![CDATA[  and o.paid=1 and o.status in (4,5,6) ]]>
+    </select>
+
+
+</mapper>

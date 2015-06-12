@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appconfig>
+	
+      <test>
+	<url>http://www.baidu.com/product</url>		
+      </test>
+      
+      <ip>
+      <list>fdsfdsfsd10.86.145.204;127.0.0.1;</list>
+      </ip>
+	
+</appconfig>

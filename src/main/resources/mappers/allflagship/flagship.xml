@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qunar.flight.flagship.flagtool.dao.allflagship.FlagshipDao">
+
+    <!--新旗舰店-->
+    <select id="selectContactInfoNew" resultType="PassengerInfo">
+        select
+        f.departure_time as departureTime,
+        f.arrival_time as arrivalTime,
+        f.departure as depCode,
+        f.arrival as arrCode,
+        a.main_order_no as bookOrderId,
+        a.contact_mobile as contactMobile,
+        a.status as status
+        from ${dbname}.order_info a
+        join ${dbname}.flight_order fo on a.id=fo.order_id
+        join ${dbname}.flight f on f.flight_order_id = fo.id
+        <where>
+            a.status  != 90 and
+            a.create_time between #{startTime} and #{endTime}
+            <if test="dcity!=''">
+                and f.departure =#{dcity}
+            </if>
+            <if test="takeOffTime!=''">
+                <![CDATA[ and f.departure_time > #{takeOffTime} ]]>
+            </if>
+
+            <if test="takeOffEndTime!=''">
+                <![CDATA[  and f.departure_time < #{takeOffEndTime} ]]>
+            </if>
+
+            <if test="acity!=''">
+                and f.arrival =#{acity}
+            </if>
+
+            <if test="arriveTime!=''">
+                <![CDATA[ and f.arrival_time > #{arriveTime} ]]>
+            </if>
+
+            <if test="arriveEndTime!=''">
+                <![CDATA[  and f.arrival_time < #{arriveEndTime} ]]>
+            </if>
+        </where>
+    </select>
+
+
+    <select id="searchFlagshipTicketNumNew" resultType="Integer">
+
+        select count(1) as count
+        from ${dbname}.order_info o,
+        ${dbname}.passenger p
+        where o.id=p.order_id and o.status=80
+        <if test="type!=2">
+            and o.source=#{type}
+        </if>
+       <![CDATA[
+        and o.create_time>=#{startDate}
+        and o.create_time<=#{endDate}
+         ]]>
+
+    </select>
+
+    <select id="searchFlagshipHyxNumNew" resultType="Integer">
+
+        select count(1) as count
+        from ${dbname}.order_info o,
+        ${dbname}.insurance ins 
+        where o.id=ins.order_id and o.status=80
+        <if test="type!=2">
+            and o.source=#{type}
+        </if>
+       <![CDATA[
+        and o.create_time>=#{startDate}
+        and o.create_time<=#{endDate}
+         ]]>
+
+    </select>
+
+    <select id="searchFlagshipYwxNumNew" resultType="Integer">
+
+        select count(1) as count
+        from ${dbname}.insurance_passenger p INNER JOIN ${dbname}.insurance_order_info io 
+        ON p.insurance_order_id=io.id INNER JOIN ${dbname}.order_info o on io.order_id=o.id 
+        where o.status=80 
+        <if test="type!=2">
+            and o.source=#{type}
+        </if>
+       <![CDATA[
+        and o.create_time>=#{startDate}
+        and o.create_time<=#{endDate}
+         ]]>
+    </select>
+
+    <!--总的订单数-->
+    <select id="searchFlagshipOrderAllNew" resultType="Integer">
+
+        select count(1) as count
+        from ${dbname}.order_info o
+        <![CDATA[
+        where o.create_time>=#{startDate}
+        and o.create_time<=#{endDate}
+         ]]>
+        <if test="type!=2">
+            and o.source=#{type}
+        </if>
+    </select>
+
+    <select id="searchFlagshipOrderPaidNew" resultType="Integer">
+
+        select count(1) as count
+        from ${dbname}.order_info o
+        where o.status in (60,70,71,80,81,93,94,95)
+        <if test="type!=2">
+            and o.source=#{type}
+        </if>
+        <![CDATA[
+        and o.create_time>=#{startDate}
+        and o.create_time<=#{endDate}
+         ]]>
+    </select>
+
+
+    <!--重复下单数,仅仅在无线或者3w-->
+    <select id="searchRepeatCreateOrder" resultType="Integer">
+        select count(1) from
+        ${dbname}.order_info
+        <![CDATA[
+           where create_time >=#{startDate} and create_time <=#{endDate}
+         ]]>
+        and source=#{type}
+        group by contact_phone
+        having COUNT(contact_phone) >1
+        and count(all_flight_no) >1
+
+        <if test="type==0">
+            and sum(source)=0
+        </if>
+        <if test="type==1">
+            and sum(source) = COUNT(contact_phone)
+        </if>
+    </select>
+
+
+    <!--重复下单数同时在无线和www都有-->
+    <select id="searchRepeatBothCreateOrder" resultType="Integer">
+        select count(1) from
+        ${dbname}.order_info
+        <![CDATA[
+           where create_time >=#{startDate} and create_time <=#{endDate}
+         ]]>
+        group by contact_phone
+        having COUNT(contact_phone) >1
+        and count(all_flight_no) >1
+        and COUNT(contact_phone) > sum(source)
+    </select>
+
+    <!--行程单数量-->
+    <select id="searchInvoiceCount" resultType="Integer">
+        select count(1) from
+        ${dbname}.invoice_info iv left join  ${dbname}.order_info oi on oi.id=iv.order_id
+        <![CDATA[
+           where iv.create_time >=#{startDate}
+           and iv.create_time <=#{endDate}
+           and iv.paid=1
+         ]]>
+        <if test="type!=2">
+           and oi.source=#{type}
+        </if>
+    </select>
+
+</mapper>
