@@ -19,7 +19,7 @@ public class AptConstants {
 	@Config("ip.list")
 	public static String IP_LIST;
 	
-	public static String SHELL_PATH="/home/zhiweiwen/myscript/log/";
+	public static String SHELL_PATH="/home/zhiweiwen/workspace/mywork/flightops/flightops/etc/sh/";
 	
 	public static String INFO_MSG = "msg";
 	

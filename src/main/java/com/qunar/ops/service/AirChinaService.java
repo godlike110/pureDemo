@@ -1,9 +1,7 @@
 package com.qunar.ops.service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -23,7 +21,7 @@ public class AirChinaService {
 	private ShellService shellService;
 	
 	/**
-	 * 导出南航错误日志
+	 * 导出国航错误日志
 	 * less /DATA_LOG_FLIGHT/CN1_nflagshipprovider/l-nflagshipprovider1.f.cn1/201505/airchina_provider.log.2015-05-22-18.gz
 	 * @param orderNo
 	 * @return

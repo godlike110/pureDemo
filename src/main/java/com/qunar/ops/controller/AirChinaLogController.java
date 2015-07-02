@@ -1,6 +1,5 @@
 package com.qunar.ops.controller;
 
-import java.rmi.server.ServerCloneException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +29,7 @@ public class AirChinaLogController {
 	public ModelAndView getLog(@RequestParam(value="orderNo",required=false) String orderNO) throws ParseException {
 		Map<String, Object> viewMap = new HashMap<String, Object>();
 		if (StringUtils.isNotBlank(orderNO)) {
+			logger.info("get airchina log!");
 			List<String> logsList = airchinaService.getErrLogOfIssueTicketErrOfAirchina(orderNO);
 			if (logsList == null || logsList.size() == 0) {
 				viewMap.put("flag", "1");
