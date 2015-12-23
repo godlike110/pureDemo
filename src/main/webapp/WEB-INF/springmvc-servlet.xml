@@ -17,11 +17,21 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.2.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/util">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
+	
+		
 	<context:annotation-config />
-	<context:component-scan base-package="com.qunar.ops">
+	<context:component-scan base-package="com.waimai">
 	</context:component-scan>
+	
+	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.waimai.ops.interceptor.LoginCheckInterceptor"></bean>
+        </mvc:interceptor>
+   </mvc:interceptors>
 
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
@@ -49,7 +59,7 @@
 		<property name="properties" ref="appConfiguration" />
 	</bean>
 
-	<bean id="appConfiguration" class="com.qunar.ops.init.ConfigBean">
+	<bean id="appConfiguration" class="com.waimai.ops.init.ConfigBean">
 		<property name="configurations">
 			<list>
 

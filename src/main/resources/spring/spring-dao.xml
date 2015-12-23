@@ -21,7 +21,7 @@
     </bean>
 
     <bean name="mapperScannerConfigurerAllFlagship" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.qunar.ops.dao" />
+        <property name="basePackage" value="com.waimai.ops.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryAllFlagship" />
     </bean>
 
