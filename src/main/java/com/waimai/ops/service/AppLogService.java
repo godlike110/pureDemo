@@ -40,15 +40,16 @@ public class AppLogService {
 
 	/**
 	 * 获取订单日志
+	 * 
 	 * @param site
 	 * @param orderNo
 	 * @return
-	 * @throws ParseException 
-	 * @throws IOException 
-	 * @throws HttpException 
+	 * @throws ParseException
+	 * @throws IOException
+	 * @throws HttpException
 	 */
-	public Map<String, String> getBookingAndCreateLog(String site, String orderNo) throws ParseException,
-			HttpException, IOException {
+	public Map<String, String> getBookingAndCreateLog(String site, String orderNo)
+			throws ParseException, HttpException, IOException {
 		Map<String, String> infos = orderService.getOrderCnameAndCtime(site, orderNo);
 		if (infos == null) {
 			return null;
@@ -64,15 +65,15 @@ public class AppLogService {
 		String type = infos.get("type");
 		List<String> createLogList = new ArrayList<String>();
 		if (type.equals("www")) {
-			createLogList = shellService.execuShell("sh " + AptConstants.SHELL_PATH + "searchbcLog.sh create " + site
-					+ " " + date + " " + timeh + " " + name + " " + fromDate + " " + date.split("-")[0] + " "
-					+ date.split("-")[1]);
+			createLogList = shellService.execuShell(
+					"sh " + AptConstants.SHELL_PATH + "searchbcLog.sh create " + site + " " + date + " " + timeh + " "
+							+ name + " " + fromDate + " " + date.split("-")[0] + " " + date.split("-")[1]);
 			String deadLine = date + " " + time + ",999";
 			String clog = getRightLog(createLogList, deadLine);
 			result.put("clog", clog);
-			List<String> bookingLog = shellService.execuShell("sh " + AptConstants.SHELL_PATH
-					+ "searchbcLog.sh booking " + site + " " + date + " " + timeh + " " + ip + " " + date.split("-")[0]
-					+ " " + date.split("-")[1]);
+			List<String> bookingLog = shellService
+					.execuShell("sh " + AptConstants.SHELL_PATH + "searchbcLog.sh booking " + site + " " + date + " "
+							+ timeh + " " + ip + " " + date.split("-")[0] + " " + date.split("-")[1]);
 			if (bookingLog == null || bookingLog.size() == 0 || StringUtils.isBlank(bookingLog.get(0))) {
 				String timeb = String.valueOf(Integer.parseInt(timeh) - 1);
 				bookingLog = shellService.execuShell("sh " + AptConstants.SHELL_PATH + "searchbcLog.sh booking " + site
@@ -82,9 +83,9 @@ public class AppLogService {
 				result.put("blog", decretebLog(getRightLog(bookingLog, clog.split("\\[")[0])));
 			}
 		} else {
-			createLogList = shellService.execuShell("sh " + AptConstants.SHELL_PATH + "searchbcLogwap.sh create "
-					+ site + " " + date + " " + timeh + " " + name + " " + fromDate + " " + date.split("-")[0] + " "
-					+ date.split("-")[1]);
+			createLogList = shellService.execuShell(
+					"sh " + AptConstants.SHELL_PATH + "searchbcLogwap.sh create " + site + " " + date + " " + timeh
+							+ " " + name + " " + fromDate + " " + date.split("-")[0] + " " + date.split("-")[1]);
 			String deadLine = date + " " + time + ",999";
 			String clog = getRightLog(createLogList, deadLine);
 			result.put("clog", clog);
@@ -106,18 +107,19 @@ public class AppLogService {
 
 	/**
 	 * 查询订单手机验证码
+	 * 
 	 * @param site
 	 * @param orderNo
 	 * @return
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public Map<String, String> getPhoneCode(String site, String orderNo) throws ParseException {
 		if (StringUtils.isBlank(site) || StringUtils.isBlank(orderNo)) {
 			return null;
 		}
 		Map<String, String> result = new HashMap<String, String>();
-		List<String> tgqLogs = shellService.execuShell("sh " + AptConstants.SHELL_PATH + "getphonecodefromtgq.sh "
-				+ orderNo + " " + site);
+		List<String> tgqLogs = shellService
+				.execuShell("sh " + AptConstants.SHELL_PATH + "getphonecodefromtgq.sh " + orderNo + " " + site);
 		String plog = getRightLog(tgqLogs, String.valueOf(sdf.format(new Date())));
 		if (StringUtils.isNotBlank(plog)) {
 			result.put("code", plog.split("验证码：")[1].split("。")[0]);
@@ -128,9 +130,10 @@ public class AppLogService {
 
 	/**
 	 * 活取线上实时错误
+	 * 
 	 * @param site
 	 * @return
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public String getOnlineError(String site, String len) throws ParseException {
 		List<String> errs = new ArrayList<String>();
@@ -139,7 +142,7 @@ public class AppLogService {
 			return null;
 		}
 		StringBuffer sb = new StringBuffer("<pre>");
-		//errs = getSortedLogByTime(errs);
+		// errs = getSortedLogByTime(errs);
 		String pattern3 = "";
 		String time = errs.get(0).split("-")[0];
 		try {
@@ -195,8 +198,9 @@ public class AppLogService {
 
 	/**
 	 * 处理 日志
+	 * 
 	 * @param listt
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	private String getRightLog(List<String> list, String deadLine) throws ParseException {
 		if (list == null || list.size() == 0) {
@@ -231,16 +235,21 @@ public class AppLogService {
 		return str.replace("d=" + param, "<font color=red>请求参数：【" + json.getString("data") + "】</font>");
 	}
 
-	//private String decretecLog(String str) {
-//		if(StringUtils.isBlank(str)) {
-//			return null;
-//		}
-	//String tgq = str.split("ctgqCond=")[1].split("goFlights")[0];
-	//String tgq = "";
-	//String ct = str.split("goFlights\\[0\\].ct")[1].split("passenger\\[")[0];
-	//String hh = str.split(" goFlights\\[0\\].pt")[1].split("totalPrice=")[0];
-	//String ee= str.split("insInfo\\.price")[1].split(" fromDate=")[0];
-	//return str.split("contactEmail=")[0].replace("goFlights[0].de", "<font color=red>出发地</font>").replace("goFlights[0].dd", "<font color=red>出发日期</font>").replace("goFlights[0].dt", "<font color=red>出发时间</font>").replace("totalPrice=","<font color=red>机票总价=</font>").replace("ctgqCond="+tgq,"").replace(ct, "").replace(hh, "").replace(ee, "");
-//	}
+	// private String decretecLog(String str) {
+	// if(StringUtils.isBlank(str)) {
+	// return null;
+	// }
+	// String tgq = str.split("ctgqCond=")[1].split("goFlights")[0];
+	// String tgq = "";
+	// String ct = str.split("goFlights\\[0\\].ct")[1].split("passenger\\[")[0];
+	// String hh = str.split(" goFlights\\[0\\].pt")[1].split("totalPrice=")[0];
+	// String ee= str.split("insInfo\\.price")[1].split(" fromDate=")[0];
+	// return str.split("contactEmail=")[0].replace("goFlights[0].de", "<font
+	// color=red>出发地</font>").replace("goFlights[0].dd", "<font
+	// color=red>出发日期</font>").replace("goFlights[0].dt", "<font
+	// color=red>出发时间</font>").replace("totalPrice=","<font
+	// color=red>机票总价=</font>").replace("ctgqCond="+tgq,"").replace(ct,
+	// "").replace(hh, "").replace(ee, "");
+	// }
 
 }

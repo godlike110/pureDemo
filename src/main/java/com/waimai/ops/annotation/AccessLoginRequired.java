@@ -8,10 +8,11 @@ import java.lang.annotation.Target;
 
 /**
  * 登录拦截
+ * 
  * @author zhiwei.wen
  * @time 2015年4月28日下午12:17:53
  */
-@Target( { ElementType.METHOD,ElementType.TYPE })
+@Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface AccessLoginRequired {

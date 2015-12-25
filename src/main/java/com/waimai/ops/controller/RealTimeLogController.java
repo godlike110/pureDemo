@@ -21,27 +21,27 @@ import com.waimai.ops.service.AppLogService;
 public class RealTimeLogController {
 
 	public static Logger logger = LoggerFactory.getLogger(RealTimeLogController.class);
-	
+
 	@Autowired
 	private AppLogService appLogService;
-	
-	
+
 	@RequestMapping("log")
-	public ModelAndView getRealTimeLog(@RequestParam(value="site",required=false) String site,@RequestParam(value="len",required=false) String len) throws ParseException {
+	public ModelAndView getRealTimeLog(@RequestParam(value = "site", required = false) String site,
+			@RequestParam(value = "len", required = false) String len) throws ParseException {
 		Map<String, Object> viewMap = new HashMap<String, Object>();
-		
-		if(StringUtils.isBlank(site)) {
-			 return new ModelAndView("realtimelogindex", viewMap);
-		  }
-		  if(StringUtils.isBlank(len)) {
-			  len = "0";
-		  }
-		  if(Integer.parseInt(len)>5) {
-			  viewMap.put(AptConstants.INFO_MSG, "服务器可能无法承受如此大步长的日志搜索！");
-			  return new ModelAndView("info", viewMap);
-		  }
-		  String logsList = appLogService.getOnlineError(site, len);
-		  viewMap.put("logs", logsList);
- 	      return new ModelAndView("realtimelog", viewMap);
+
+		if (StringUtils.isBlank(site)) {
+			return new ModelAndView("realtimelogindex", viewMap);
+		}
+		if (StringUtils.isBlank(len)) {
+			len = "0";
+		}
+		if (Integer.parseInt(len) > 5) {
+			viewMap.put(AptConstants.INFO_MSG, "服务器可能无法承受如此大步长的日志搜索！");
+			return new ModelAndView("info", viewMap);
+		}
+		String logsList = appLogService.getOnlineError(site, len);
+		viewMap.put("logs", logsList);
+		return new ModelAndView("realtimelog", viewMap);
 	}
 }

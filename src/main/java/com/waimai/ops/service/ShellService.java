@@ -14,9 +14,10 @@ import org.springframework.stereotype.Service;
 public class ShellService {
 
 	public static Logger logger = LoggerFactory.getLogger(ShellService.class);
-	
+
 	/**
 	 * 执行shell脚本
+	 * 
 	 * @param shell
 	 * @return
 	 */
@@ -32,9 +33,9 @@ public class ShellService {
 			}
 			input.close();
 		} catch (IOException e) {
-			logger.error("",e);
+			logger.error("", e);
 		}
 		return processList;
 	}
-	
+
 }

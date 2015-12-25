@@ -14,40 +14,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: fangjianping
- * Date: 14-11-16
- * Time: 上午9:47
+ * 登陆
+ * 
+ * @author wenzhiwei 2015年12月24日 LoginCheckInterceptor by eclipse
  */
 public class LoginCheckInterceptor implements HandlerInterceptor {
-    private static final Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
 
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		if (!(handler instanceof HandlerMethod))
+			return true;
+		HandlerMethod handlerMethod = (HandlerMethod) handler;
+		AccessLoginRequired loginCheck = handlerMethod.getBean().getClass().getAnnotation(AccessLoginRequired.class);
+		if (loginCheck != null) {
+			logger.info("需要登录");
+			return true;
+		}
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(!(handler instanceof HandlerMethod)) return true;
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        AccessLoginRequired loginCheck = handlerMethod.getBean().getClass().getAnnotation(AccessLoginRequired.class);
-        if(loginCheck!=null) {
-        	logger.info("需要登录");
-        	return true;
-        }
-        
-        logger.info("不需要登录");
-        return true;
-    }
+		logger.info("不需要登录");
+		return true;
+	}
 
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+	}
 
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-    	String c = "";
-    	response.getOutputStream().println(c);
-    	System.out.println("c:{}"+c);
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-    	String a = "aa";
-
-    	System.out.println("a:{}"+a);
-    }
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+	}
 }

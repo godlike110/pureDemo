@@ -12,12 +12,10 @@ import com.waimai.ops.model.Admin;
 public class TestService {
 
 	@Autowired
-     private AdminDao adminDao;
-	
-	
-	public List<Admin> getAdmins(int offset,int limit) {
+	private AdminDao adminDao;
+
+	public List<Admin> getAdmins(int offset, int limit) {
 		return adminDao.getAdmins(offset, limit);
 	}
-	
-	
+
 }

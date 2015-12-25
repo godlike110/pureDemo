@@ -31,21 +31,21 @@ public class QunarController {
 
 	@RequestMapping("index")
 	@ResponseBody
-	public String index(@RequestParam(value="pa",required=false) int pa) {
+	public String index(@RequestParam(value = "pa", required = false) int pa) {
 		String url = AptConstants.TEST_URL;
 		return url;
 	}
 
 	@RequestMapping("page")
-	public ModelAndView myPage(@RequestParam(value="name",required=false) String name) {
+	public ModelAndView myPage(@RequestParam(value = "name", required = false) String name) {
 		Map<String, Object> viewMap = new HashMap<String, Object>();
 		viewMap.put("name", name);
 		return new ModelAndView("page", viewMap);
 	}
 
 	@RequestMapping("air9")
-	public ModelAndView getAir9(@RequestParam(value="date",required=false) String date, @RequestParam(value="flightNo",required=false) String flightNo)
-			throws IOException {
+	public ModelAndView getAir9(@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "flightNo", required = false) String flightNo) throws IOException {
 		Map<String, Object> viewMap = new HashMap<String, Object>();
 		Map<String, String> htmlMap = air9Service.getAir9Infos(flightNo, date);
 		viewMap.put("title", htmlMap.get("title"));
@@ -63,8 +63,8 @@ public class QunarController {
 	}
 
 	@RequestMapping("ordersearch")
-	public ModelAndView getOrderInfo(@RequestParam(value="site",required=false) String site, @RequestParam(value="orderNo",required=false) String orderNo)
-			throws IOException {
+	public ModelAndView getOrderInfo(@RequestParam(value = "site", required = false) String site,
+			@RequestParam(value = "orderNo", required = false) String orderNo) throws IOException {
 		Map<String, Object> viewMap = new HashMap<String, Object>();
 		Map<String, String> htmlMap = orderService.getOrderInfos(site, orderNo);
 		if (null != htmlMap) {

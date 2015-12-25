@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.waimai.ops.model.JsonDateSerializer;
+
 public class Admin implements Serializable {
 
 	/**
@@ -18,11 +19,11 @@ public class Admin implements Serializable {
 	private static long serialVersionUID = -2356859755444087901L;
 
 	private int id;
-	
+
 	private String name;
-	
+
 	private String phone;
-	
+
 	private Date createTime;
 
 	public String getName() {
@@ -57,9 +58,8 @@ public class Admin implements Serializable {
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 }

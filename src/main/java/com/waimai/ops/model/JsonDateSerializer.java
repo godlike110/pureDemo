@@ -13,12 +13,13 @@ import java.util.Date;
  * zhiweiwen
  */
 public class JsonDateSerializer extends DateSerializer {
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-    @Override
-    public void serialize(Date value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
-	  JsonGenerationException {
-		String formateDate=simpleDateFormat.format(value);
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+	@Override
+	public void serialize(Date value, JsonGenerator jgen, SerializerProvider provider)
+			throws IOException, JsonGenerationException {
+		String formateDate = simpleDateFormat.format(value);
 		jgen.writeString(formateDate);
-    }
+	}
 
 }

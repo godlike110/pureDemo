@@ -21,33 +21,31 @@ import com.waimai.ops.model.User;
 @RequestMapping("/home")
 public class HomeController {
 
-  @RequestMapping(value = "show", method = RequestMethod.GET)
-  public ModelAndView showHomePage(HttpServletRequest request, HttpServletResponse response,
-      ModelMap modelMap) {
-    return new ModelAndView("home/show");
-  }
+	@RequestMapping(value = "show", method = RequestMethod.GET)
+	public ModelAndView showHomePage(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+		return new ModelAndView("home/show");
+	}
 
-  @RequestMapping(value = "ordinary", method = RequestMethod.GET)
-  public ModelAndView ordinary(HttpServletRequest request, HttpServletResponse response,
-      ModelMap modelMap) {
-    // velocity测试
-    List<String> strlist = new ArrayList<String>();
-    for (int i = 0; i < 10; i++) {
-      strlist.add("list字符" + i);
-    }
-    modelMap.put("strlist", strlist);
-    Map<String, String> map = new HashMap<String, String>();
-    for (int i = 0; i < 10; i++) {
-      map.put("zifu" + i, "map字符" + i);
-    }
-    map.put(null, "哦");
-    modelMap.put("map", map);
-    List<User> objlist = new Stack<User>();
-    for (int i = 0; i < 10; i++) {
-      objlist.add(new User("name" + i, "nick" + i));
-    }
-    modelMap.put("uselist", objlist);
-    return new ModelAndView("home/ordinary", modelMap);
-  }
+	@RequestMapping(value = "ordinary", method = RequestMethod.GET)
+	public ModelAndView ordinary(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+		// velocity测试
+		List<String> strlist = new ArrayList<String>();
+		for (int i = 0; i < 10; i++) {
+			strlist.add("list字符" + i);
+		}
+		modelMap.put("strlist", strlist);
+		Map<String, String> map = new HashMap<String, String>();
+		for (int i = 0; i < 10; i++) {
+			map.put("zifu" + i, "map字符" + i);
+		}
+		map.put(null, "哦");
+		modelMap.put("map", map);
+		List<User> objlist = new Stack<User>();
+		for (int i = 0; i < 10; i++) {
+			objlist.add(new User("name" + i, "nick" + i));
+		}
+		modelMap.put("uselist", objlist);
+		return new ModelAndView("home/ordinary", modelMap);
+	}
 
 }

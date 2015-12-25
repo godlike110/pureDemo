@@ -3,7 +3,7 @@ package com.waimai.ops.model;
 public class Test2 {
 
 	int a;
-	
+
 	int thirdType;
 
 	public int getA() {
@@ -21,6 +21,5 @@ public class Test2 {
 	public void setThirdType(int thirdType) {
 		this.thirdType = thirdType;
 	}
-	
-	
+
 }

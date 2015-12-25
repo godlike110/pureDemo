@@ -34,10 +34,28 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
+    
+        
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+    
+  <filter>
+      <filter-name>AccessFilter</filter-name>
+      <filter-class>com.waimai.ops.filter.AccessFilter</filter-class>
+      <init-param>
+          <param-name>ipWhiteList</param-name>
+          <param-value>10.0.0.1-10.255.255.254;192.168.0.1-192.168.255.254;172.30.0.1-172.30.255.254;124.251.11.37-124.251.11.37</param-value>
+      </init-param>
+  </filter>
+  
+    <filter-mapping>
+        <filter-name>AccessFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
     
     	<!-- 很神奇。。。 -->
 	<servlet>

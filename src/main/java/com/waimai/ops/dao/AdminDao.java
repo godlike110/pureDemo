@@ -8,7 +8,6 @@ import com.waimai.ops.model.Admin;
 
 public interface AdminDao {
 
+	List<Admin> getAdmins(@Param("offset") int offset, @Param("limit") int limit);
 
-	List<Admin> getAdmins(@Param("offset") int offset,@Param("limit") int limit);
-	
 }

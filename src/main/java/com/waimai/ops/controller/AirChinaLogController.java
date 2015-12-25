@@ -26,7 +26,8 @@ public class AirChinaLogController {
 	private AirChinaService airchinaService;
 
 	@RequestMapping("log")
-	public ModelAndView getLog(@RequestParam(value="orderNo",required=false) String orderNO) throws ParseException {
+	public ModelAndView getLog(@RequestParam(value = "orderNo", required = false) String orderNO)
+			throws ParseException {
 		Map<String, Object> viewMap = new HashMap<String, Object>();
 		if (StringUtils.isNotBlank(orderNO)) {
 			logger.info("get airchina log!");

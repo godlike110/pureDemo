@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class Air9Service {
 
@@ -22,6 +21,7 @@ public class Air9Service {
 
 	/**
 	 * 9元航班时刻表
+	 * 
 	 * @param flightNo
 	 * @param date
 	 * @return
@@ -29,11 +29,10 @@ public class Air9Service {
 	 */
 	public Map<String, String> getAir9Infos(String flightNo, String date) throws IOException {
 		String urlString = "http://crew.9air.com/flight_history_body_out.jsp";
-		if(StringUtils.isNotBlank(date)) {
+		if (StringUtils.isNotBlank(date)) {
 			urlString = urlString + "?submit2=go&flightdate=" + date;
 		}
-		Document doc = Jsoup.connect(urlString)
-				.get();
+		Document doc = Jsoup.connect(urlString).get();
 		return getinfos(doc, date, flightNo);
 	}
 
@@ -63,9 +62,9 @@ public class Air9Service {
 	public StringBuffer getTitle(Element ele) {
 		Elements tds = ele.getElementsByTag("td");
 		StringBuffer sb = new StringBuffer("<thread><tr>");
-		int i=0;
+		int i = 0;
 		for (Element td : tds) {
-			if(i<15) {
+			if (i < 15) {
 				sb.append("<th>").append(td.text()).append("</th>");
 			}
 			i++;
@@ -84,7 +83,7 @@ public class Air9Service {
 					sb.append("<tr>");
 					int i = 0;
 					for (Element td : tds) {
-						if(i<15) {
+						if (i < 15) {
 							sb.append("<td>").append(td.text()).append("</td>");
 						}
 						i++;
@@ -94,9 +93,9 @@ public class Air9Service {
 			} else {
 				Elements tds = tr.getElementsByTag("td");
 				sb.append("<tr>");
-				int i=0;
+				int i = 0;
 				for (Element td : tds) {
-					if(i<15){
+					if (i < 15) {
 						sb.append("<td>").append(td.text()).append("</td>");
 					}
 					i++;

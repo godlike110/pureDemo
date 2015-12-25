@@ -84,6 +84,25 @@
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
 		</dependency>
+		
+		<dependency>
+  <groupId>aspectj</groupId>
+  <artifactId>aspectjweaver</artifactId>
+  <version>1.5.3</version>
+</dependency>
+
+<dependency>
+  <groupId>aspectj</groupId>
+  <artifactId>aspectjrt</artifactId>
+  <version>1.5.3</version>
+</dependency>
+
+
+<dependency>
+  <groupId>cglib</groupId>
+  <artifactId>cglib</artifactId>
+  <version>3.2.0</version>
+</dependency>
 
 		<!-- Logging -->
 		<!--Java Commons Logging redirect to slf4j -->
