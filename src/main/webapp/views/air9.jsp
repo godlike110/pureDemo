@@ -28,6 +28,27 @@ ga('send', 'pageview');
 <title>航班动态</title>
 </head>
 <body>
+
+<div id="layout">
+
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+    <div id="menu">
+        <div class="pure-menu pure-menu-open">
+            <a class="pure-menu-heading" href="#">服务平台</a>
+            <ul>
+                <li ><a href="${ctx}/api/index">首页</a></li>
+                <li class="menu-item-divided pure-menu-selected"><a href="${ctx}/qunar/air9">航空公司航班查询</a></li>
+                <li ><a href="${ctx}/tair/find">tair查询</a>
+                <li ><a href="${ctx}/tair/set">tair赋值</a>
+            </ul>
+        </div>
+    </div>
+    
+    
+
 <p align= center><font color=red size=4>航班动态</font></p>
 
 <form action="${ctx}/qunar/air9" method="post" class="pure-form">
@@ -43,6 +64,8 @@ ga('send', 'pageview');
 ${title }
 ${data }
 </table>
+</div>
+
 
 <script src="../static/ui.js"></script>
 </body>

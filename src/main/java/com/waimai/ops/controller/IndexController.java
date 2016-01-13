@@ -32,12 +32,21 @@ public class IndexController extends BaseController {
 	@Autowired
 	private TestService testService;
 
-	@RequestMapping("index")
-	public ModelAndView index(@RequestParam("a") int a, @RequestParam("b") int b) {
+	@RequestMapping("newindex")
+	public ModelAndView index() {
 
 		logger.info("requestId:{}", this.getAccessData().getCurrentRequestId());
 		return new ModelAndView("index");
 	}
+	
+	@RequestMapping("index")
+	public ModelAndView newIndex() {
+
+		logger.info("requestId:{}", this.getAccessData().getCurrentRequestId());
+		return new ModelAndView("newindex");
+	}
+	
+	
 
 	@RequestMapping("print")
 	@ResponseBody
