@@ -33,7 +33,7 @@ ga('send', 'pageview');
         <div class="pure-menu pure-menu-open">
             <a class="pure-menu-heading" href="#">Platform</a>
             <ul>
-                <li class="menu-item-divided pure-menu-selected"><a href="${ctx}/api/index">首页</a></li>
+                <li class="menu-item-divided pure-menu-selected"><a href="${ctx}/api/index">公告栏</a></li>
                 <li ><a href="${ctx}/tair/find">tair查询</a>
                 <li ><a href="${ctx}/tair/set">tair赋值</a>
             </ul>
