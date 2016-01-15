@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,28 +26,26 @@ public class TairController {
 	private TairService tairService;
 	
 	@RequestMapping("find")
-	public ModelAndView getValue(@RequestParam(value="key",required=false) String key,@RequestParam(value="env",required=false) String env) {
+	public String getValue(@RequestParam(value="key",required=false) String key,@RequestParam(value="env",required=false) String env,Model model) {
 		if(StringUtils.isBlank(key) || StringUtils.isBlank(env)) {
-			return new ModelAndView("tairget", null);
+			return "tairget";
 		} else {
 			String value = tairService.getValue(env, key);
-			Map<String, String> result = new HashMap<>();
-			result.put("env", env);
-			result.put("key", key);
-			result.put("value", value);
-			return new ModelAndView("tairget", result);
+			model.addAttribute("env", env);
+			model.addAttribute("key", key);
+			model.addAttribute("value", value);
+			return "tairget";
 		}
 	}
 	
 	@RequestMapping("set")
-	public ModelAndView setValue(@RequestParam(value="key",required=false) String key,@RequestParam(value="env",required=false) String env,@RequestParam(value="value",required=false) String value) {
+	public String setValue(@RequestParam(value="key",required=false) String key,@RequestParam(value="env",required=false) String env,@RequestParam(value="value",required=false) String value,Model model) {
 		if(StringUtils.isBlank(key) || StringUtils.isBlank(env) || StringUtils.isBlank(value)) {
-			return new ModelAndView("tairset", null);
+			return "tairset";
 		} else {
 			boolean result = tairService.setValue(env, key, value);
-			Map<String, String> rMap = new HashMap<>();
-			rMap.put("result", String.valueOf(result));
-			return new ModelAndView("tairset", rMap);
+			model.addAttribute("result", result);
+			return "tairset";
 		}
 	}
 	

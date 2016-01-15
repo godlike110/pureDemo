@@ -31,7 +31,7 @@ ga('send', 'pageview');
     </a>
     <div id="menu">
         <div class="pure-menu pure-menu-open">
-            <a class="pure-menu-heading" href="#">服务平台</a>
+            <a class="pure-menu-heading" href="#">Platform</a>
             <ul>
                 <li class="menu-item-divided pure-menu-selected"><a href="${ctx}/api/index">首页</a></li>
                 <li ><a href="${ctx}/tair/find">tair查询</a>
@@ -44,7 +44,8 @@ ga('send', 'pageview');
 <div class="splash-container">
     <div class="splashhome">
 
-        <h1 class="splash-head"><font color=red>欢迎使用外卖C端服务系统！</font></h1>
+        <h1 class="splash-head"><font color=red>欢迎使用外卖Cbase服务系统！</font><br/><br/><font color=blue>本周值班:${thisName};下周值班:${nextName}</font></h1>
+
         <p class="splash-subhead">
            <font color=blue>this is a platform for search something userful.</font>
         </p>
