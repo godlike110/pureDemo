@@ -3,7 +3,6 @@ package com.waimai.ops.utils;
 import java.nio.charset.StandardCharsets;
 
 import org.slf4j.LoggerFactory;
-import org.apache.ibatis.annotations.Case;
 import org.slf4j.Logger;
 
 import com.alibaba.fastjson.JSON;
@@ -12,7 +11,6 @@ import com.taobao.tair3.client.Result;
 import com.taobao.tair3.client.TairClient;
 import com.taobao.tair3.client.error.TairException;
 import com.taobao.tair3.client.impl.DefaultTairClient;
-import com.waimai.ops.enums.Env;
 
 public class MyTairClient {
 	

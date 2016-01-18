@@ -1,6 +1,5 @@
 package com.waimai.ops.utils;
 
-import com.taobao.tair3.client.impl.DefaultTairClient;
 import com.waimai.ops.enums.Env;
 
 public class TairUtil {
