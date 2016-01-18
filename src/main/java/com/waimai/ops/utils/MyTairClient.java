@@ -55,9 +55,9 @@ public class MyTairClient {
         }
     }
 
-    public void updateKV(String key,Object value){
+    public void updateKV(String key,String value){
         byte[] key_bytes = key.getBytes(StandardCharsets.UTF_8);
-        byte[] value_bytes = JSONObject.toJSONString(value).getBytes(StandardCharsets.UTF_8);
+        byte[] value_bytes = value.getBytes(StandardCharsets.UTF_8);
         try {
             Result<Void> result = defaultTairClient.put(C_NS, key_bytes, value_bytes,
                     new TairClient.TairOption(DEFAULT_TIME_OUT));
