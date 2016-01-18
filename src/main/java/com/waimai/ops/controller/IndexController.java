@@ -93,7 +93,7 @@ public class IndexController extends BaseController {
 
 	private Map<String, String> getServerName(long nowTime) {
 		int weeks = (int) ((nowTime - startTime*1000) / aWeekTime);
-		int thisWeek = weeks/4;
+		int thisWeek = weeks%4;
 		int nextWeek = 0;
 		if(thisWeek==3) {
 			nextWeek = 0;
