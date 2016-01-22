@@ -33,6 +33,7 @@ public class PoiUtils {
 	}
 
 	public static void main(String args[]) {
+		System.out.println("test ");
 		//Double distance = getDistance(31.143764,97.170224,31.143764,97.170235);
 		Double distance = getDistance(39.913555,116.392422,39.922639,116.401777);
 		System.out.println("distance:" + String.valueOf(distance));

@@ -36,6 +36,7 @@ ga('send', 'pageview');
                 <li ><a href="${ctx}/api/index">公告栏</a></li>
                 <li class="menu-item-divided pure-menu-selected"><a href="${ctx}/tair/find">tair查询</a>
                 <li ><a href="${ctx}/tair/set">tair赋值</a>
+                <li ><a href="${ctx}/zk/index">zk 开关</a></li>
             </ul>
         </div>
     </div>

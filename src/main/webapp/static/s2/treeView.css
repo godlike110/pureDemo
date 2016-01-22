@@ -1,0 +1,11 @@
+html, body, div { margin:0; padding: 0; font-size: 16px;}
+.treeView {margin-left: 20px; margin-top: 20px; width: 230px; height: 200px; display: relative;}
+.treeNode {margin: 5px 0 5px 20px; position: relative;}
+.expand, .collapsed { cursor: pointer; display: block; width: 10px; height: 10px; position: absolute; left: -12px; top: 10px;}
+.loading {display: block; width: 16px; height: 16px; background: url(images/loading.gif) no-repeat; position: absolute; top:0px; left: 5px; display: none; }
+.collapsed { background: url(images/triangle_H.png) no-repeat;}
+.expand { background: url(images/triangle_V.png) no-repeat;}
+.hide {display: none;}
+.indicator, .collapsedVal {cursor: pointer;}
+.bgBlue { color: #fff; background: #3e82ff;}
+

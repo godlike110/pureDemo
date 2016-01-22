@@ -10,19 +10,19 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>qunar web-ops</name>
 	<url>http://www.qunar.com</url>
-	
+
 	<properties>
-        <java-version>1.7</java-version>
-        <mtframework.version>1.0.4</mtframework.version>
-        <mt.mybatis.version>1.0.0</mt.mybatis.version>
-        <mt.fe.verison>1.0.2-SNAPSHOT</mt.fe.verison>
-        <spring.version>4.0.7.RELEASE</spring.version>
-        <jetty-version>8.1.9.v20130131</jetty-version>
-        <jetty-servlets-version>8.1.16.v20140903</jetty-servlets-version>
-        <log4j2.version>2.3</log4j2.version>
-    </properties>
-	
-	
+		<java-version>1.7</java-version>
+		<mtframework.version>1.0.4</mtframework.version>
+		<mt.mybatis.version>1.0.0</mt.mybatis.version>
+		<mt.fe.verison>1.0.2-SNAPSHOT</mt.fe.verison>
+		<spring.version>4.0.7.RELEASE</spring.version>
+		<jetty-version>8.1.9.v20130131</jetty-version>
+		<jetty-servlets-version>8.1.16.v20140903</jetty-servlets-version>
+		<log4j2.version>2.3</log4j2.version>
+	</properties>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -97,49 +97,49 @@
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
 		</dependency>
-		
+
 		<dependency>
-  <groupId>aspectj</groupId>
-  <artifactId>aspectjweaver</artifactId>
-  <version>1.5.3</version>
-</dependency>
+			<groupId>aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.5.3</version>
+		</dependency>
 
-<dependency>
-  <groupId>aspectj</groupId>
-  <artifactId>aspectjrt</artifactId>
-  <version>1.5.3</version>
-</dependency>
+		<dependency>
+			<groupId>aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.5.3</version>
+		</dependency>
 
-<dependency>
-  <groupId>com.linkedin.databus</groupId>
-  <artifactId>databus-client-common</artifactId>
-  <version>2.0.0.fk.001</version>
-  <exclusions>
-		<exclusion>
-  			<groupId>org.jboss.netty</groupId>
-  			<artifactId>netty</artifactId>
-		</exclusion>
-	</exclusions>
-</dependency>
+		<dependency>
+			<groupId>com.linkedin.databus</groupId>
+			<artifactId>databus-client-common</artifactId>
+			<version>2.0.0.fk.001</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jboss.netty</groupId>
+					<artifactId>netty</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-        <dependency>
-            <groupId>com.taobao.tair</groupId>
-            <artifactId>tair3-client</artifactId>
-            <version>3.1.9.4-mt</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<dependency>
+			<groupId>com.taobao.tair</groupId>
+			<artifactId>tair3-client</artifactId>
+			<version>3.1.9.4-mt</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 
-<dependency>
-  <groupId>cglib</groupId>
-  <artifactId>cglib</artifactId>
-  <version>3.2.0</version>
-</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>3.2.0</version>
+		</dependency>
 
 		<!-- Logging -->
 		<!--Java Commons Logging redirect to slf4j -->
@@ -346,12 +346,30 @@
 			<version>1.2.3</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.3.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 
 
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.8.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.sankuai.meituan.waimai</groupId>
+    		<artifactId>waimai_c_base_util</artifactId>
+    		<version>1.0-SNAPSHOT</version>
 		</dependency>
 
 
@@ -382,6 +400,41 @@
 					<scanIntervalSeconds>3</scanIntervalSeconds>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>com.codegen</groupId>
+				<artifactId>maven-jadegen-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<configuration>
+					<!-- 默认值 是 com.mysql.jdbc.Driver, 可根据需要确定是否修改数据库配置信息 -->
+					<driverClass>com.mysql.jdbc.Driver</driverClass>
+					<dbUrl>jdbc:mysql://127.0.0.1:3306/or_test</dbUrl>
+
+					<dbUser>root</dbUser>
+					<dbPassword></dbPassword>
+
+					<!-- 数据库表名，根据需要进行修改，默认是 % 全部， 支持前缀形式 比如：user_%;如果是散表,随意取 一个散表的表名如test_04及可生成散表格式的DAO -->
+
+					<tbNamePattern>%</tbNamePattern>
+
+					<!--genType=1/2； 1：生成jade的DAO及Model; 2: 生成wiki格式的表结构，此时tbNamePattern只能为 
+						% -->
+					<genType>2</genType>
+
+					<!-- 生成的DAO和Model的包路径，注：包要事先建好，否则执行时可能报错 -->
+					<modelPkg>com.waimai.ops.model</modelPkg>
+					<daoPkg>com.waimai.ops.dao</daoPkg>
+					<wikiPkg>com.waimai.ops.model</wikiPkg>
+
+					<!-- 默认是 工程 src/main/java 目录 -->
+					<srcFolder>${project.build.sourceDirectory}</srcFolder>
+
+					<!-- 基础类的设置 -->
+					<baseObjectClass>cn.focus.dc.commons.model.BaseObject</baseObjectClass>
+					<pkClass>cn.focus.dc.commons.annotation.PrimaryKey</pkClass>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
