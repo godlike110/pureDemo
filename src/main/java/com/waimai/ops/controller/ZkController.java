@@ -2,8 +2,10 @@ package com.waimai.ops.controller;
 
 import java.util.List;
 
+import javax.print.attribute.standard.RequestingUserName;
 import javax.swing.JButton;
 
+import org.apache.camel.processor.interceptor.StreamCachingInterceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.zookeeper.KeeperException;
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.JSONScanner;
 import com.gentlyweb.utils.StringRangeComparator;
 import com.waimai.ops.model.TreeData;
 import com.waimai.ops.service.ZkService;
@@ -46,7 +49,17 @@ public class ZkController {
 		if(StringUtils.isBlank(qs)) {
 			return getRootData();
 		}
-		return getData(qs);
+		return getOrSetData(qs);
+	}
+	
+	
+	@RequestMapping("setData") 
+	@ResponseBody
+	public String setDataApi(@RequestParam(value="value",required=false) String value, @RequestParam(value="qs",required=false) String qs) throws KeeperException, InterruptedException {
+		if(StringUtils.isBlank(qs)) {
+			return "failed";
+		}
+		return getOrSetData(qs);
 	}
 	
 	public String getRootData() {
@@ -66,7 +79,7 @@ public class ZkController {
 		return data.toString();
 	}
 	
-	public String getData(String qs) throws KeeperException, InterruptedException {
+	public String getOrSetData(String qs) throws KeeperException, InterruptedException {
 		String[] params = qs.split(SPLIT_STR);
 		
 		switch(params.length) {
@@ -75,7 +88,9 @@ public class ZkController {
 		case 2:
 			return getServerConfigList(params[0], params[1]);
 		case 3:
-			return null;
+			return getConfig(params[0], params[1], params[2]);
+		case 4:
+			return setConfig(params[0], params[1], params[2],params[3]);
 		default:
 			return null;
 		}
@@ -128,5 +143,41 @@ public class ZkController {
 		
 	}
 	
+	/**
+	 * zk配置
+	 * @param env
+	 * @param server
+	 * @param key
+	 * @return
+	 * @throws KeeperException
+	 * @throws InterruptedException
+	 */
+	public String getConfig(String env,String server,String key) throws KeeperException, InterruptedException {
+		String value = zkService.getConfig(server, key, env);
+		JSONObject jObject = new JSONObject();
+		jObject.put("key", key);
+		jObject.put("value", value);
+		jObject.put("qs", env+SPLIT_STR+server);
+		return jObject.toString();
+	}
+	
+	/**
+	 * zk配置设置
+	 * @param env
+	 * @param server
+	 * @param key
+	 * @param value
+	 * @return
+	 * @throws KeeperException
+	 * @throws InterruptedException
+	 */
+	public String setConfig(String env,String server,String key,String value) throws KeeperException, InterruptedException {
+		boolean result = zkService.setConfig(server, key, value, env);
+		if(result) {
+			return "true";
+		} else {
+			return "failed";
+		}
+	}
 
 }

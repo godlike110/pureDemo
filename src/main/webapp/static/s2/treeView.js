@@ -54,9 +54,16 @@
 
 	//点击最终指标取得其id值
 	$(document).on("click", ".indicator", function(){
-		alert($(this).attr("data-href"));
-		$(".bgBlue").removeClass("bgBlue");
-		$(this).addClass("bgBlue");
+		
+	    $.get("/zk/getData?qs="+$(this).attr("data-href"),function(result){
+			$("#key").val(result.key);
+			$("#value").val(result.value);
+			$("#mybutton").attr("data-href",result.qs);
+			$("#mydiv1").show();
+			$(".bgBlue").removeClass("bgBlue");
+			$(this).addClass("bgBlue");
+	    },"json");
+		
 	})
 
 	//点击展开图标，如果子节点数据已经存在则显示，否则从数据库获取

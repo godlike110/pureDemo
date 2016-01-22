@@ -57,7 +57,7 @@ public class ZkService {
 	 */
 	public String getConfig(String server,String key,String env) throws KeeperException, InterruptedException {
 		
-		String path = rootPath + "/"+ server + "/" + key;
+		String path = rootPath + "/"+ server + "/config/" + key;
 		LOGGER.info("getconfig,server:{},key:{},env:{}",server,key,env);
 		return ZkUtil.getZkClient(env).get(path);
 	}
@@ -74,7 +74,7 @@ public class ZkService {
 	 */
 	public boolean setConfig(String server,String key,String value,String env) throws KeeperException, InterruptedException {
 		LOGGER.info("getconfig,server:{},key:{},value:{},env:{}",server,key,value,env);
-		String path = rootPath + "/"+ server + "/" + key;
+		String path = rootPath + "/"+ server + "/config/" + key;
 		return ZkUtil.getZkClient(env).set(path, value);
 	}
 

@@ -40,27 +40,48 @@
 	</div>
 	
 	
-<div class="mydiv1" id="mydiv1" style="left: 300px;background: #fff;border: 1px solid #666;position: absolute;box-shadow: 1px 1px 2px 3px #999;z-index: 1000">
+<div class="mydiv1" id="mydiv1" style="top: 76px;position: fixed;left: 300px;background: #fff;border: 1px solid #666;box-shadow: 1px 1px 2px 3px #999;z-index: 1000">
 <form style="
-    width: 800px;/* margin-left: 200px; */margin-top: 10px;/* margin-right: 301px; */background-color: black;" class="pure-form pure-form-aligned">
+    width: 800px;/* margin-left: 200px; */margin-top: 10px;/* margin-right: 301px; */background-color: #4AA248;" class="pure-form pure-form-aligned">
     <fieldset>
         <div class="pure-control-group">
-            <label for="name">KEY</label>
+            <label for="name">键</label>
             <input id="key" type="text" placeholder="key">
         </div>
 
         <div class="pure-control-group">
-            <label for="name">Password</label>
+            <label for="name">值</label>
             <input id="value" type="text" placeholder="value">
         </div>
 
         <div class="pure-controls">
-            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+            <a id="mybutton" data-href="" class="pure-button pure-button-primary">修改或添加</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a id="mybutton1" class="pure-button pure-button-primary">取消</a>
         </div>
     </fieldset>
 </form>
 </div>	
 		<script type="text/javascript" src="${ctx}/static/s2/jquery-1.8.2.min.js"></script>
 		<script type="text/javascript" src="${ctx}/static/s2/treeView.js"></script>
+		
+		<script type="text/javascript">
+		
+		$(document).ready(function(){
+			$("#mydiv1").hide();
+			
+			  $("#mybutton").click(function(){
+				  
+				    $.get("/zk/getData?qs="+$(this).attr("data-href")+"@@"+$("#key").val()+"@@"+$("#value").val(),function(result){
+						alert(result);
+				    },"json");
+				$("#mydiv1").hide();
+			  });
+			  $("#mybutton1").click(function(){
+					$("#mydiv1").hide();
+				  });
+			});
+		
+
+		</script>
+		
 	</body>
 </html>
