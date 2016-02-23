@@ -28,7 +28,7 @@ public class IndexController extends BaseController {
 
 	public static Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
-	private static final String[] names = {"文志伟","黎亚洲","常泽川","李承宇"};
+	private static final String[] names = {"黎亚洲","常泽川","文志伟","李承宇","朱建波"};
 	
 	private static final long startTime = 1452441600;
 	
