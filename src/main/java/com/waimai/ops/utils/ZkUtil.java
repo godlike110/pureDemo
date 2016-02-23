@@ -23,7 +23,7 @@ public class ZkUtil {
 	
 	static {
 		devZkClient = new MyZkClient("10.4.245.47:9331,10.4.245.49:9331,10.4.245.43:9331", 60000);
-		qaZkClient = new MyZkClient("10.4.238.20:9331,10.4.233.31:9331,10.4.232.164:9331", 60000);
+		qaZkClient = new MyZkClient("10.4.232.164:9331,10.4.238.20:9331,10.4.233.31:9331", 60000);
 	}
 	
 	public static MyZkClient getZkClient(String env) {
