@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
-import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

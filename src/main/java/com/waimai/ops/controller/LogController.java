@@ -5,8 +5,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,27 +25,27 @@ public class LogController {
 	@Autowired
 	private AppLogService appLogService;
 
-	@RequestMapping("bclog")
-	public ModelAndView getBookingAndCreatelog(@RequestParam(value = "site", required = false) String site,
-			@RequestParam(value = "orderNo", required = false) String orderNo)
-					throws ParseException, HttpException, IOException {
-		Map<String, Object> viewMap = new HashMap<String, Object>();
-		if (StringUtils.isBlank(site) || StringUtils.isBlank("orderNo")) {
-			viewMap.put("flag", 3);
-			return new ModelAndView("bclogindex", viewMap);
-		} else {
-			Map<String, String> bclog = appLogService.getBookingAndCreateLog(site, orderNo);
-			if (bclog != null) {
-				viewMap.put("cl", bclog.get("clog"));
-				viewMap.put("bl", bclog.get("blog"));
-				viewMap.put("flag", 2);
-			} else {
-				viewMap.put("flag", 1);
-				return new ModelAndView("bclogindex", viewMap);
-			}
-		}
-		return new ModelAndView("bclog", viewMap);
-	}
+//	@RequestMapping("bclog")
+//	public ModelAndView getBookingAndCreatelog(@RequestParam(value = "site", required = false) String site,
+//			@RequestParam(value = "orderNo", required = false) String orderNo)
+//					throws ParseException, HttpException, IOException {
+//		Map<String, Object> viewMap = new HashMap<String, Object>();
+//		if (StringUtils.isBlank(site) || StringUtils.isBlank("orderNo")) {
+//			viewMap.put("flag", 3);
+//			return new ModelAndView("bclogindex", viewMap);
+//		} else {
+//			Map<String, String> bclog = appLogService.getBookingAndCreateLog(site, orderNo);
+//			if (bclog != null) {
+//				viewMap.put("cl", bclog.get("clog"));
+//				viewMap.put("bl", bclog.get("blog"));
+//				viewMap.put("flag", 2);
+//			} else {
+//				viewMap.put("flag", 1);
+//				return new ModelAndView("bclogindex", viewMap);
+//			}
+//		}
+//		return new ModelAndView("bclog", viewMap);
+//	}
 
 	@RequestMapping("phonecode")
 	public ModelAndView getPhoneCode(@RequestParam(value = "site", required = false) String site,

@@ -1,10 +1,12 @@
 package com.waimai.ops.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,9 +14,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.waimai.ops.dao.AdminDao;
+import com.waimai.ops.model.Admin;
+
 @Controller
 @RequestMapping("")
 public class ApiController {
+	
+	@Autowired
+	private AdminDao adminDao;
+	
+	@RequestMapping(value = "v1/db/", method = RequestMethod.GET)
+	@ResponseBody
+	public String getAdmin() {
+		List<Admin> admins = adminDao.getAdmins(0);
+		return JSONObject.toJSONString(admins);
+	}
 
 	// @ResponseBody
 	@RequestMapping(value = "v1/app/test", method = RequestMethod.GET)

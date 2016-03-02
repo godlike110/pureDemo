@@ -50,6 +50,7 @@ public class AccessFilter implements Filter {
 			chain.doFilter(request, response);
 
 		} catch (Exception ex) {
+			logger.error("AccessFilter error!",ex);
 			Throwable casue = ex.getCause();
 			if (casue == null) {
 				casue = ex;

@@ -15,7 +15,7 @@ public class TestService {
 	private AdminDao adminDao;
 
 	public List<Admin> getAdmins(int offset, int limit) {
-		return adminDao.getAdmins(offset, limit);
+		return adminDao.getAdmins(0);
 	}
 
 }
